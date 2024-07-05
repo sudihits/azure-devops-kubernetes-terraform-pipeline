@@ -10,8 +10,8 @@ strategy:
      operatingSystem: 'macos-latest'
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: $(operatingSystem)
 
 steps:
-- script: echo Hello, world!
+- script: echo Running on $(operatingSystem)
   displayName: 'Run a one-line script'
