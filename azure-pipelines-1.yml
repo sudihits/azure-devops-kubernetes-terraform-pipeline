@@ -15,21 +15,21 @@ stages:
   - job: BuildJob
     steps:
     - bash: echo "Do the build"
-- stage: DevDeploy
+- stage: SIT
   jobs:
-  - deployment: DevDeployJob
-    environment: Dev
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - script: echo deploy to Dev
-- stage: QADeploy
-  jobs:
-  - deployment: QADeployJob
+  - deployment: SITJob
     environment: SIT
     strategy:
       runOnce:
         deploy:
           steps:
-          - script: echo deploy to SIT
+          - script: echo deploy to Dev
+- stage: Staging
+  jobs:
+    - deployment: StagingJob
+      environment: Staging
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - script: echo deploy to Staging
