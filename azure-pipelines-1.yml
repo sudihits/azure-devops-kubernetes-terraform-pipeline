@@ -4,32 +4,21 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- master
 
 pool:
   vmImage: 'ubuntu-latest'
 
 stages:
-- stage: Development
+- stage: Build
   jobs:
-  - job: BuildJob
+  - job: FirstJob
     steps:
-    - bash: echo "Do the build"
-- stage: SIT
-  jobs:
-  - deployment: SITJob
-    environment: SIT
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - script: echo deploy to Dev
-- stage: Staging
-  jobs:
-    - deployment: StagingJob
-      environment: Staging
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - script: echo deploy to Staging
+    - bash: echo Build FirstJob
+    - bash: echo $(Build.BuildNumber)
+    - bash: echo $(Build.BuildId)
+    - bash: echo $(Build.SourceBranchName)
+    - bash: echo $(Build.SourcesDirectory)
+    - bash: echo $(System.DefaultWorkingDirectory)
+    - bash: ls -R $(System.DefaultWorkingDirectory)
+    - bash: echo $(Build.ArtifactStagingDirectory)
